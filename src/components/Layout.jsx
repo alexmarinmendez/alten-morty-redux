@@ -1,8 +1,14 @@
-import React from 'react'
+import "../assets/styles/components/Layout.scss"
+import Header from './Header'
+import Footer from './Footer'
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
-    <div>Layout</div>
+    <div className="layout">
+      <Header />
+        { children }
+      <Footer />
+    </div>
   )
 }
 
