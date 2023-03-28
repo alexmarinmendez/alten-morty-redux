@@ -1,5 +1,5 @@
 import "../assets/styles/components/Character.scss"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ReactComponent as SVGStar } from "../assets/static/icons/star.svg"
 import { connect } from 'react-redux'
 import { setFavorite, deleteFavorite } from '../actions'
@@ -7,20 +7,39 @@ import CharacterDetail from './CharacterDetail'
 import Modal from './Modal'
 
 const Character = (props) => {
-  const { id, image, name, status, gender, species } = props.data
+  const { data, favoriteCharacters } = props
+  const { id, image, name, status, gender, species } = data
   const [modal, setModal] = useState(false)
   const [favorite, setFavorite] = useState(false)
 
-  const handleCloseModal = () => {}
-  const handleOpenModal = () => {}
+  const handleCloseModal = () => {
+    setModal(false)
+  }
+
+  const handleOpenModal = () => {
+    setModal(true)
+  }
 
   const handleSetFavorite = () => {
-
+    props.setFavorite(data)
+    setFavorite(true)
   }
 
-  const handleDeleteFavorite = () => {
-
+  const handleDeleteFavorite = itemId => {
+    props.deleteFavorite(itemId)
+    setFavorite(false)
   }
+
+  const isFavorite = () => {
+    const result = favoriteCharacters.filter(item => item.id === id)
+    if (result.length) {
+      setFavorite(true)
+    }
+  }
+
+  useEffect(() => {
+    isFavorite()
+  }, [])
 
   return (
     <div className="character">
@@ -32,7 +51,7 @@ const Character = (props) => {
         {
           favorite
           ? <SVGStar className="character__details-star favorite" onClick={() => handleDeleteFavorite(id)} />
-          : <SVGStar className="character__details-star nofavorite" onClick={() => handleSetFavorite(id)} />
+          : <SVGStar className="character__details-star nofavorite" onClick={handleSetFavorite} />
         }
         <p className="character__details__item">
           <span className="character__details__item-type">Status: </span>{status}
@@ -47,8 +66,24 @@ const Character = (props) => {
           More details...
         </p>
       </div>
+
+      <Modal isOpen={modal} onClose={handleCloseModal}>
+        <CharacterDetail data={props.data} />
+      </Modal>
+
     </div>
   )
 }
 
-export default Character
+//react-redux native (whith HOC)
+const mapStateToProps = state => {
+  return {
+    favoriteCharacters: state.favoriteCharacters
+  }
+}
+
+const mapDispatchToProps = {
+  setFavorite, deleteFavorite
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Character)

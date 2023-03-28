@@ -3,13 +3,13 @@ const reducer = (state, action) => {
         case "SET_FAVORITE": 
             return {
                 ...state,
-                favoriteCharacters: [...state, favoriteCharacters, action.payload],
+                favoriteCharacters: [...state.favoriteCharacters, action.payload],
             }
         
         case "DELETE_FAVORITE":
             return {
                 ...state,
-                favoriteCharacters: state.favoriteCharacters.filter(item => item.data.id !== action.payload)
+                favoriteCharacters: state.favoriteCharacters.filter(item => item.id !== action.payload)
             }
         
         case "SET_SECTION":
