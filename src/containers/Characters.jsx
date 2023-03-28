@@ -1,8 +1,11 @@
-import React from 'react'
+import "../assets/styles/components/CharacterList.scss"
+import CharacterList from '../components/CharacterList'
 
 const Characters = () => {
   return (
-    <div>Characters</div>
+    <section>
+      <CharacterList />
+    </section>
   )
 }
 
