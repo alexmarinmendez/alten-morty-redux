@@ -27,19 +27,19 @@
   left: 245px;
 }
 
-.character__details-star.favorite {
+.favorite {
   fill: $success-color;
 }
 
-.character__details-star.favorite:hover {
+.favorite:hover {
   fill: $light-color;
 }
 
-.character__details-star.noFavorite {
+.noFavorite {
   fill: $light-color;
 }
 
-.character__details-star.noFavorite:hover {
+.noFavorite:hover {
   fill: $success-color;
 }
 
