@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Character from './Character'
+import Loader from './Loader'
+import Error from './Error'
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([])
@@ -33,7 +35,7 @@ const CharacterList = () => {
         : error 
           ? <Error />
           : (
-            characters.map(item => <Character />)
+            characters.map(item => <Character key={item.id} data={item} />)
           )
       }
     </div>
