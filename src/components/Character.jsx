@@ -15,7 +15,7 @@ const Character = (props) => {
   const handleCloseModal = () => {
     setModal(false)
   }
-
+  
   const handleOpenModal = () => {
     setModal(true)
   }
